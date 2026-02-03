@@ -3,52 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>검 합성 게임</title>
+    <title>검 강화 머지 게임</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>⚔️ 검 합성 게임</h1>
-            <div class="resources">
-                <div class="gold">💰 골드: <span id="gold">0</span>G</div>
+    <!-- 상단 헤더 -->
+    <header>
+        <div class="header-left">
+            <div class="fire-icon">🔥</div>
+            <div class="level-badge">
+                <span class="coin-icon">🪙</span>
+                <span id="playerLevel">Lv.1</span>
             </div>
-        </header>
+            <button class="header-btn yellow" id="questBtn">퀘스트 <span class="badge" id="questBadge">3</span></button>
+            <button class="header-btn gray" id="achievementBtn">업적 <span class="badge" id="achievementBadge">0</span></button>
+        </div>
+        <div class="header-right">
+            <div class="gold-display">
+                💰 골드: <span id="gold">54</span>
+            </div>
+            <div class="ruby-display">
+                💎 루비: <span id="ruby">0</span>
+            </div>
+            <div class="gps-display">
+                📈 <span id="gpsDisplay">0.1</span>G/초
+            </div>
+        </div>
+    </header>
 
-        <main>
-            <div class="top-section">
-                <div class="shop-section">
-                    <h2>🏪 상점</h2>
-                    <button class="buy-btn" id="buySwordBtn">
-                        ⚔️ 검 구매 (<span id="swordPrice">20</span>G)
-                    </button>
-                    <p class="shop-desc">Lv.1 검 획득 (0.1G/초)</p>
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <!-- 탭 메뉴 -->
+        <div class="tab-menu">
+            <button class="tab-btn" data-tab="merge">모든 머지</button>
+            <button class="tab-btn active" data-tab="auto">자동 머지</button>
+            <button class="tab-btn" data-tab="info">정보</button>
+        </div>
+
+        <!-- 모든 머지 탭 -->
+        <div class="tab-content" id="mergeTab" style="display: none;">
+            <div class="merge-center">
+                <h1 class="game-title">검 강화 머지 게임</h1>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-label">골드</div>
+                        <div class="stat-value" id="goldStat">48</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">보석</div>
+                        <div class="stat-value" id="rubyStat">0</div>
+                    </div>
                 </div>
-
-                <div class="actions-section">
-                    <h2>🔨 관리</h2>
-                    <button class="action-btn" id="enhanceBtn">✨ 검 강화</button>
-                    <button class="action-btn" id="sortBtn">📊 정렬</button>
+                <div class="main-buttons">
+                    <button class="main-btn green">검 강화<br><span>머지 & 검을 투자</span></button>
+                    <button class="main-btn pink">결투<br><span>배틀 모드</span></button>
+                    <button class="main-btn blue">상점<br><span>골드 & 보석 교환</span></button>
                 </div>
             </div>
+        </div>
 
-            <div class="inventory-section">
-                <h2>⚔️ 인벤토리 (5x5)</h2>
-                <p class="inventory-desc">같은 레벨 검 2개를 드래그해서 합성하세요!</p>
+        <!-- 자동 머지 탭 (기본) -->
+        <div class="tab-content active" id="autoTab">
+            <!-- 인벤토리 -->
+            <div class="inventory-container">
                 <div id="inventory" class="inventory"></div>
             </div>
 
-            <div id="enhanceModal" class="modal">
-                <div class="modal-content">
-                    <h3>✨ 검 강화</h3>
-                    <div id="enhanceModalInfo"></div>
-                    <div class="modal-buttons">
-                        <button id="confirmEnhance" class="modal-btn confirm">강화하기</button>
-                        <button id="cancelEnhance" class="modal-btn cancel">취소</button>
+            <!-- 하단 버튼들 -->
+            <div class="bottom-actions">
+                <button class="action-btn green" id="buySwordBtn">검 구매<br><span id="swordPriceText">20G</span></button>
+                <button class="action-btn purple" id="luckyBoxBtn">행운 상자<br><span>100G</span></button>
+                <button class="action-btn orange" id="enhanceBtn">강화<br><span>선택 필요</span></button>
+                <button class="action-btn wide teal" id="sortBtn">🔄 정렬 (레벨순)</button>
+                <button class="action-btn wide pink" id="sellAllBtn">💰 전체 판매 (골드 획득)</button>
+            </div>
+        </div>
+
+        <!-- 정보 탭 -->
+        <div class="tab-content" id="infoTab" style="display: none;">
+            <div class="info-center">
+                <h2>게임 정보</h2>
+                <div class="info-box">
+                    <h3>🎮 게임 방법</h3>
+                    <p>• 같은 레벨의 검 2개를 드래그하여 합성</p>
+                    <p>• 검을 강화하여 골드 획득량 증가</p>
+                    <p>• 자동으로 골드가 쌓입니다</p>
+                </div>
+                <div class="info-box">
+                    <h3>⚔️ 검 레벨</h3>
+                    <p>Lv.1: 0.1G/초</p>
+                    <p>Lv.2: 0.2G/초</p>
+                    <p>Lv.3: 0.4G/초</p>
+                    <p>Lv.4: 0.8G/초 (2배씩 증가)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 퀘스트 모달 -->
+    <div id="questModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📜 일일 퀘스트</h3>
+                <button class="close-btn" id="closeQuestModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div id="questList" class="quest-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 업적 모달 -->
+    <div id="achievementModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🏆 업적</h3>
+                <button class="close-btn" id="closeAchievementModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div id="achievementList" class="achievement-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 행운 상자 모달 -->
+    <div id="luckyBoxModal" class="modal">
+        <div class="modal-content lucky-box-content">
+            <div class="modal-header">
+                <h3>🎁 행운 상자</h3>
+                <button class="close-btn" id="closeLuckyBoxModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="lucky-box-animation">
+                    <div class="box-icon">🎁</div>
+                    <div class="box-result" id="boxResult"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn confirm" id="openBoxBtn">상자 열기 (100G)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 강화 모달 -->
+    <div id="enhanceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>레벨업</h3>
+                <button class="close-btn" id="closeModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="enhance-info">
+                    <div class="enhance-title">현재 플레이어 레벨 <span class="level-num">1</span></div>
+                    <div class="enhance-subtitle">Lv.2 도달 조건</div>
+                    <div class="enhance-requirements">
+                        <div class="requirement">
+                            <span class="req-icon">⚔️</span>
+                            <span class="req-text">Lv.10 검 1개</span>
+                            <span class="req-status">0 / 1</span>
+                        </div>
+                        <div class="requirement">
+                            <span class="req-icon">💰</span>
+                            <span class="req-text">골드 20,000</span>
+                            <span class="req-status">56.19999999999982 / 20000</span>
+                        </div>
+                    </div>
+                    <div class="enhance-warning">
+                        ⚠️ 레벨업 시 보유한 검과 모두 초기화되니 (사실 골드 50 차감)
                     </div>
                 </div>
             </div>
-        </main>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" id="cancelEnhance">레벨업 안함</button>
+                <button class="modal-btn confirm" id="confirmEnhance">달성</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
