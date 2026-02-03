@@ -179,9 +179,10 @@ function updateDisplay() {
 }
 
 function handleDragStart(e) {
-    const index = parseInt(e.target.dataset.index);
+    const slot = e.currentTarget;
+    const index = parseInt(slot.dataset.index);
     gameState.draggedIndex = index;
-    e.target.classList.add('dragging');
+    slot.classList.add('dragging');
 }
 
 function handleDragEnd(e) {
