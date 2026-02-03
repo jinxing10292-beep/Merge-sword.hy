@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검 합성 게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚔️ 검 합성 게임</h1>
+            <div class="resources">
+                <div class="gold">💰 골드: <span id="gold">0</span>G</div>
+            </div>
+        </header>
+
+        <main>
+            <div class="top-section">
+                <div class="shop-section">
+                    <h2>🏪 상점</h2>
+                    <button class="buy-btn" id="buySwordBtn">
+                        ⚔️ 검 구매 (<span id="swordPrice">20</span>G)
+                    </button>
+                    <p class="shop-desc">Lv.1 검 획득 (0.1G/초)</p>
+                </div>
+
+                <div class="actions-section">
+                    <h2>🔨 관리</h2>
+                    <button class="action-btn" id="enhanceBtn">✨ 검 강화</button>
+                    <button class="action-btn" id="sortBtn">📊 정렬</button>
+                </div>
+            </div>
+
+            <div class="inventory-section">
+                <h2>⚔️ 인벤토리 (5x5)</h2>
+                <p class="inventory-desc">같은 레벨 검 2개를 드래그해서 합성하세요!</p>
+                <div id="inventory" class="inventory"></div>
+            </div>
+
+            <div id="enhanceModal" class="modal">
+                <div class="modal-content">
+                    <h3>✨ 검 강화</h3>
+                    <div id="enhanceModalInfo"></div>
+                    <div class="modal-buttons">
+                        <button id="confirmEnhance" class="modal-btn confirm">강화하기</button>
+                        <button id="cancelEnhance" class="modal-btn cancel">취소</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
