@@ -17,6 +17,8 @@
             </div>
             <button class="header-btn yellow" id="questBtn">퀘스트 <span class="badge" id="questBadge">3</span></button>
             <button class="header-btn gray" id="achievementBtn">업적 <span class="badge" id="achievementBadge">0</span></button>
+            <button class="header-btn green" id="saveBtn">💾 저장</button>
+            <button class="header-btn red" id="resetBtn">🔄 초기화</button>
         </div>
         <div class="header-right">
             <div class="gold-display">
@@ -95,6 +97,20 @@
                     <p>Lv.2: 0.2G/초</p>
                     <p>Lv.3: 0.4G/초</p>
                     <p>Lv.4: 0.8G/초 (2배씩 증가)</p>
+                </div>
+                <div class="info-box">
+                    <h3>💾 저장 시스템</h3>
+                    <p>• 자동 저장: 5초마다 자동으로 저장됩니다</p>
+                    <p>• 수동 저장: 상단의 💾 저장 버튼 클릭</p>
+                    <p>• 브라우저를 닫아도 진행상황이 유지됩니다</p>
+                    <p>• 초기화: 🔄 초기화 버튼으로 게임 리셋</p>
+                </div>
+                <div class="info-box">
+                    <h3>📊 통계</h3>
+                    <p>총 합성 횟수: <span id="statMerges">0</span>회</p>
+                    <p>총 강화 횟수: <span id="statEnhances">0</span>회</p>
+                    <p>최고 검 레벨: <span id="statHighestLevel">1</span></p>
+                    <p>총 획득 골드: <span id="statTotalGold">0</span>G</p>
                 </div>
             </div>
         </div>

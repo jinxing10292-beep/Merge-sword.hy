@@ -106,6 +106,14 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
         });
         document.getElementById(tab + 'Tab').classList.add('active');
         gameState.currentTab = tab;
+        
+        // 정보 탭일 때 통계 업데이트
+        if (tab === 'info') {
+            document.getElementById('statMerges').textContent = gameState.totalMerges;
+            document.getElementById('statEnhances').textContent = gameState.totalEnhances;
+            document.getElementById('statHighestLevel').textContent = gameState.highestSwordLevel;
+            document.getElementById('statTotalGold').textContent = Math.floor(gameState.totalGoldEarned);
+        }
     });
 });
 
@@ -580,3 +588,29 @@ setInterval(() => {
 
 initGame();
 updateDisplay();
+
+// 수동 저장 버튼
+document.getElementById('saveBtn').addEventListener('click', () => {
+    saveGame();
+    showFloatingText('💾 게임이 저장되었습니다!');
+});
+
+// 초기화 버튼
+document.getElementById('resetBtn').addEventListener('click', () => {
+    if (confirm('정말로 게임을 초기화하시겠습니까?\n모든 진행상황이 삭제됩니다!')) {
+        if (confirm('정말 확실합니까? 되돌릴 수 없습니다!')) {
+            localStorage.removeItem('mergeSwordGame');
+            location.reload();
+        }
+    }
+});
+
+// 페이지 나갈 때 자동 저장
+window.addEventListener('beforeunload', () => {
+    saveGame();
+});
+
+// 5초마다 자동 저장
+setInterval(() => {
+    saveGame();
+}, 5000);
