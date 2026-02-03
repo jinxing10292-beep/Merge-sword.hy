@@ -9,6 +9,10 @@ body {
     background: linear-gradient(180deg, #1a1f3a 0%, #2d3561 100%);
     min-height: 100vh;
     color: white;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* 헤더 */
@@ -262,6 +266,10 @@ header {
     cursor: pointer;
     transition: all 0.2s;
     position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .inventory-slot:hover {
@@ -288,6 +296,8 @@ header {
 .sword-icon-inv {
     font-size: 2.5em;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    pointer-events: none;
+    user-select: none;
 }
 
 .sword-level-inv {
@@ -295,18 +305,24 @@ header {
     font-weight: bold;
     color: #ffc107;
     margin-top: 5px;
+    pointer-events: none;
+    user-select: none;
 }
 
 .sword-enhance-inv {
     font-size: 0.75em;
     color: #4caf50;
     font-weight: bold;
+    pointer-events: none;
+    user-select: none;
 }
 
 .sword-gold-inv {
     font-size: 0.7em;
     color: #aaa;
     margin-top: 2px;
+    pointer-events: none;
+    user-select: none;
 }
 
 /* 하단 액션 버튼 */
