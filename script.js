@@ -169,6 +169,8 @@ function updateDisplay() {
         }
         
         slot.addEventListener('dragover', handleDragOver);
+        slot.addEventListener('dragenter', handleDragEnter);
+        slot.addEventListener('dragleave', handleDragLeave);
         slot.addEventListener('drop', handleDrop);
         slot.addEventListener('click', () => handleSlotClick(index));
         

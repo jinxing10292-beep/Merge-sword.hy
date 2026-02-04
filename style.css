@@ -268,7 +268,7 @@ header {
     align-items: center;
     justify-content: center;
     cursor: grab;
-    transition: all 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     position: relative;
 }
 
@@ -280,9 +280,8 @@ header {
     pointer-events: none;
 }
 
-.inventory-slot:hover {
+.inventory-slot:hover:not(.dragging) {
     border-color: #1e90ff;
-    transform: scale(1.05);
     box-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
 }
 
@@ -292,13 +291,14 @@ header {
 }
 
 .inventory-slot.dragging {
-    opacity: 0.5;
+    opacity: 0.4;
+    transform: scale(0.95);
 }
 
 .inventory-slot.drag-over {
-    border-color: #ffc107;
-    background: rgba(255, 193, 7, 0.2);
-    transform: scale(1.1);
+    border-color: #ffc107 !important;
+    background: rgba(255, 193, 7, 0.2) !important;
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.6) !important;
 }
 
 .sword-icon-inv {
