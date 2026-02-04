@@ -53,9 +53,10 @@ function saveGame() {
     localStorage.setItem('mergeSwordGame', JSON.stringify(gameState));
 }
 
-// 레벨별 초당 골드
+// 레벨별 초당 골드 (2.5배씩 증가)
 function getBaseGoldPerSecond(level) {
-    return 0.1 * Math.pow(2, level - 1);
+    if (level === 1) return 0.1;
+    return 0.1 * Math.pow(2.5, level - 1);
 }
 
 // 강화 보너스
