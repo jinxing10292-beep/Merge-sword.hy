@@ -58,7 +58,6 @@ function saveGame() {
 function getBaseGoldPerSecond(level) {
     if (level === 1) return 0.1;
     // 1레벨에서 10레벨까지 10,000배 증가 (0.1 → 1000)
-    // 각 레벨마다 약 2.15배씩 증가
     return 0.1 * Math.pow(10000, (level - 1) / 9);
 }
 
@@ -185,22 +184,28 @@ function updateDisplay() {
 }
 
 function handleDragStart(e) {
+    e.stopPropagation();
     const slot = e.currentTarget;
     const index = parseInt(slot.dataset.index);
     gameState.draggedIndex = index;
     
-    // 약간의 지연 후 dragging 클래스 추가 (깜빡임 방지)
-    setTimeout(() => {
-        slot.classList.add('dragging');
-    }, 0);
+    // 투명한 드래그 이미지 설정
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, 1, 1);
+    e.dataTransfer.setDragImage(canvas, 0, 0);
+    e.dataTransfer.effectAllowed = 'move';
     
-    // 드래그 이미지를 투명하게 설정
-    const img = new Image();
-    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-    e.dataTransfer.setDragImage(img, 0, 0);
+    // 즉시 dragging 클래스 추가
+    requestAnimationFrame(() => {
+        slot.classList.add('dragging');
+    });
 }
 
 function handleDragEnd(e) {
+    e.stopPropagation();
     const slot = e.currentTarget;
     slot.classList.remove('dragging');
     
@@ -212,20 +217,28 @@ function handleDragEnd(e) {
 
 function handleDragOver(e) {
     e.preventDefault();
+    e.stopPropagation();
     e.dataTransfer.dropEffect = 'move';
+    return false;
 }
 
 function handleDragEnter(e) {
     e.preventDefault();
+    e.stopPropagation();
     const slot = e.currentTarget;
-    if (!slot.classList.contains('dragging')) {
+    const index = parseInt(slot.dataset.index);
+    if (index !== gameState.draggedIndex) {
         slot.classList.add('drag-over');
     }
 }
 
 function handleDragLeave(e) {
+    e.stopPropagation();
     const slot = e.currentTarget;
-    slot.classList.remove('drag-over');
+    // relatedTarget이 자식 요소가 아닐 때만 제거
+    if (!slot.contains(e.relatedTarget)) {
+        slot.classList.remove('drag-over');
+    }
 }
 
 function handleDrop(e) {

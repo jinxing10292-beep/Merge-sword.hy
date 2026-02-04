@@ -7,6 +7,11 @@
     -ms-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+*:focus {
+    outline: none;
 }
 
 body {
@@ -256,6 +261,8 @@ header {
     gap: 10px;
     max-width: 600px;
     margin: 0 auto;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .inventory-slot {
@@ -268,8 +275,9 @@ header {
     align-items: center;
     justify-content: center;
     cursor: grab;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: none;
     position: relative;
+    will-change: opacity;
 }
 
 .inventory-slot:active {
@@ -278,9 +286,11 @@ header {
 
 .inventory-slot * {
     pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
-.inventory-slot:hover:not(.dragging) {
+.inventory-slot:hover:not(.dragging):not(.drag-over) {
     border-color: #1e90ff;
     box-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
 }
@@ -291,14 +301,14 @@ header {
 }
 
 .inventory-slot.dragging {
-    opacity: 0.4;
-    transform: scale(0.95);
+    opacity: 0.3;
+    border-color: #3d4575;
 }
 
 .inventory-slot.drag-over {
     border-color: #ffc107 !important;
-    background: rgba(255, 193, 7, 0.2) !important;
-    box-shadow: 0 0 20px rgba(255, 193, 7, 0.6) !important;
+    background: rgba(255, 193, 7, 0.3) !important;
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.8) !important;
 }
 
 .sword-icon-inv {
