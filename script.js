@@ -182,11 +182,23 @@ function handleDragStart(e) {
     const slot = e.currentTarget;
     const index = parseInt(slot.dataset.index);
     gameState.draggedIndex = index;
-    slot.classList.add('dragging');
+    
+    // 약간의 지연 후 dragging 클래스 추가 (깜빡임 방지)
+    setTimeout(() => {
+        slot.classList.add('dragging');
+    }, 0);
+    
+    // 드래그 이미지를 투명하게 설정
+    const img = new Image();
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    e.dataTransfer.setDragImage(img, 0, 0);
 }
 
 function handleDragEnd(e) {
-    e.target.classList.remove('dragging');
+    const slot = e.currentTarget;
+    slot.classList.remove('dragging');
+    
+    // 모든 drag-over 클래스 제거
     document.querySelectorAll('.drag-over').forEach(el => {
         el.classList.remove('drag-over');
     });
@@ -194,8 +206,20 @@ function handleDragEnd(e) {
 
 function handleDragOver(e) {
     e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+}
+
+function handleDragEnter(e) {
+    e.preventDefault();
     const slot = e.currentTarget;
-    slot.classList.add('drag-over');
+    if (!slot.classList.contains('dragging')) {
+        slot.classList.add('drag-over');
+    }
+}
+
+function handleDragLeave(e) {
+    const slot = e.currentTarget;
+    slot.classList.remove('drag-over');
 }
 
 function handleDrop(e) {
