@@ -165,6 +165,7 @@ header {
 .merge-center {
     text-align: center;
     padding: 50px 20px;
+    min-height: 400px;
 }
 
 .game-title {
@@ -387,6 +388,7 @@ header {
 /* 정보 탭 */
 .info-center {
     padding: 30px;
+    min-height: 400px;
 }
 
 .info-center h2 {
