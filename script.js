@@ -53,10 +53,13 @@ function saveGame() {
     localStorage.setItem('mergeSwordGame', JSON.stringify(gameState));
 }
 
-// 레벨별 초당 골드 (2.5배씩 증가)
+// 레벨별 초당 골드 (Lv.1 = 0.1, Lv.10 = 1000)
+// 지수 함수로 계산: 0.1 * (10000^((level-1)/9))
 function getBaseGoldPerSecond(level) {
     if (level === 1) return 0.1;
-    return 0.1 * Math.pow(2.5, level - 1);
+    // 1레벨에서 10레벨까지 10,000배 증가 (0.1 → 1000)
+    // 각 레벨마다 약 2.15배씩 증가
+    return 0.1 * Math.pow(10000, (level - 1) / 9);
 }
 
 // 강화 보너스
